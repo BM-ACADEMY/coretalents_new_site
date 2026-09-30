@@ -213,8 +213,18 @@ function LoopVideo({ name, className = 'stack-video', eager = false, active = tr
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (visible && active) v.play().catch(() => {}); else v.pause();
   }, [visible, active]);
+  // Below-the-fold posters are only requested once the card is about a screen
+  // away, so they do not compete with the first screen's images.
+  const [near, setNear] = useState(eager);
+  useEffect(() => {
+    if (near) return undefined;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect(); } },
+      { rootMargin: '800px 0px' });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [near]);
   return (
-    <video ref={ref} className={className} src={`/video/${name}.mp4`} poster={`/video/${name}.jpg`}
+    <video ref={ref} className={className} src={`/video/${name}.mp4`} poster={near ? `/video/${name}.webp` : undefined}
       muted loop playsInline preload={eager ? 'auto' : 'none'} aria-hidden="true" />
   );
 }

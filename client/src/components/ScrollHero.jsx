@@ -101,7 +101,7 @@ export default function ScrollHero() {
     return (
       <section className="scroll-hero is-static">
         <div className="sh-frame">
-          <img className="sh-video" src="/video/hero-poster.jpg" alt="" />
+          <img className="sh-video" src="/video/hero-poster.webp" alt="" />
           <div className="sh-shade" style={{ opacity: 0.7 }} />
           <div className="wrap sh-stage">
             <h1>Hire faster, at volume, across Tamil Nadu</h1>
@@ -118,7 +118,7 @@ export default function ScrollHero() {
       <div className="sh-sticky">
         <motion.div className="sh-frame" style={{ scale: frameScale, borderRadius: radius }}>
           <motion.video ref={video} className="sh-video" style={{ scale }}
-            muted playsInline preload="auto" poster="/video/hero-poster.jpg" aria-hidden="true" />
+            muted playsInline preload="auto" poster="/video/hero-poster.webp" aria-hidden="true" />
           <motion.div className="sh-shade" style={{ opacity: shade }} />
 
           <motion.div className="wrap sh-stage" style={s1} aria-hidden={stage !== 0}>

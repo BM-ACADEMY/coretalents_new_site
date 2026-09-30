@@ -8,6 +8,23 @@
 <meta property="og:site_name" content="CoreTalents">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/logo-header.png" as="image">
+<script>
+  // Start the first screen's banner image at once instead of after the JS bundle.
+  // Keep in sync with HEAD_VIDEO in src/components/Blocks.jsx.
+  (function () {
+    var p = location.pathname.replace(/\/+$/, '') || '/';
+    var map = {
+      '/': 'hero-poster', '/services': 'svc-recruitment', '/about': 'svc-recruitment',
+      '/roles': 'svc-bulk', '/locations': 'ph-city', '/insights': 'ph-laptop',
+      '/how-we-work': 'svc-language', '/contact': 'svc-language', '/empanelment': 'ph-signing'
+    };
+    if (!map[p]) return;
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'image'; l.href = '/video/' + map[p] + '.webp';
+    l.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(l);
+  })();
+</script>
 <!-- GA4: paste your measurement ID, then uncomment
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXX');</script>
