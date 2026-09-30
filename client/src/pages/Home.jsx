@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import { SERVICES, ROLES, LOCATIONS } from '../data/content';
 import Seo, { ORG_SCHEMA, LOCAL_SCHEMA } from '../components/Seo';
 import { ArrowRight } from '@phosphor-icons/react';
-import { CtaBand, HeroProof, Table, ProcessGrid, Card, RowList, Tags } from '../components/Blocks';
+import { CtaBand, HeroProof, Table, ProcessGrid, ServiceStack, RowList, Tags } from '../components/Blocks';
+import ScrollHero from '../components/ScrollHero';
 import { Illustration } from '../components/Art';
+import { Parallax, Marquee } from '../components/Motion';
 
 export default function Home() {
   return (
@@ -14,23 +16,15 @@ export default function Home() {
         schema={[ORG_SCHEMA, LOCAL_SCHEMA]}
       />
 
-      <section className="hero">
-        <div className="wrap hero-grid">
-          <div>
-          <h1>Hire faster, at volume, across Tamil Nadu</h1>
-          <p className="lead">From one specialist role to a hundred seats on a floor. We source, screen and deliver candidates in Puducherry, Chennai and across South India &mdash; and you pay only when a candidate actually joins.</p>
-          <div className="hero-actions">
-            <Link className="btn btn-primary btn-lg" to="/contact">Share your requirement<ArrowRight size={18} weight="bold" aria-hidden="true" /></Link>
-            <Link className="btn btn-outline btn-lg" to="/empanelment">Empanel free</Link>
-          </div>
-          <p className="hero-note">Written proposal and firm rates within 24 hours. No fee to empanel.</p>
-          </div>
-          <div className="hero-art"><Illustration name="hiring" eager /></div>
-        </div>
-      </section>
+      <ScrollHero />
 
       <section className="proof-strip">
         <div className="wrap"><HeroProof /></div>
+      </section>
+
+      <section className="ticker" aria-label="Roles and locations we hire for">
+        <Marquee items={ROLES.map((r) => r.nav)} tone="yellow" tilt={-1.5} speed={3} />
+        <Marquee items={LOCATIONS.map((l) => l.nav)} tone="navy" tilt={-1.5} speed={2.5} reverse />
       </section>
 
       <section>
@@ -58,9 +52,7 @@ export default function Home() {
             <h2>What we do</h2>
             <p>Five services. The first four are paid only on joining; the fifth is a flat-rate advertising option.</p>
           </div>
-          <div className="bento">
-            {SERVICES.map((s) => <Card key={s.slug} accent title={s.nav} text={s.desc} to={`/services/${s.slug}`} />)}
-          </div>
+          <ServiceStack items={SERVICES} />
         </div>
       </section>
 
@@ -121,7 +113,7 @@ export default function Home() {
               <p><strong>Extended:</strong> Bangalore and the Hosur-Krishnagiri-Dharmapuri belt for Kannada-speaking roles. Candidate sourcing reaches into the border districts of Andhra Pradesh and Karnataka for language-specific mandates.</p>
               <Tags base="locations" items={LOCATIONS} labelKey="city" />
             </div>
-            <Illustration name="location-search" />
+            <Parallax distance={40}><Illustration name="location-search" /></Parallax>
           </div>
         </div>
       </section>

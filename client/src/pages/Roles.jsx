@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ROLES, LOCATIONS } from '../data/content';
 import Seo, { ORG_SCHEMA } from '../components/Seo';
-import { CtaBand, PageHead, Card, Tags } from '../components/Blocks';
+import { CtaBand, PageHead, Card, Tags, Prose } from '../components/Blocks';
 import NotFound from './NotFound';
 
 export function RolesIndex() {
@@ -15,7 +15,7 @@ export function RolesIndex() {
       <section>
         <div className="wrap">
           <div className="cards cards-2">
-            {ROLES.map((r) => <Card key={r.slug} title={r.nav} text={r.roles} to={`/roles/${r.slug}`} />)}
+            {ROLES.map((r, i) => <Card key={r.slug} index={i} title={r.nav} text={r.roles} to={`/roles/${r.slug}`} />)}
           </div>
         </div>
       </section>
@@ -34,7 +34,7 @@ export function RolePage() {
       <Seo title={r.title} desc={r.desc} path={`roles/${r.slug}`} schema={[ORG_SCHEMA]} />
       <PageHead crumb={[{ label: 'Roles', to: '/roles' }, { label: r.nav }]} title={r.h1} lead={r.lead} />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <h2>Roles we fill</h2>
           <p>{r.roles}</p>
           <h2>What we screen for</h2>
@@ -47,7 +47,7 @@ export function RolePage() {
           </div>
           <h2>Where we hire for this</h2>
           <Tags base="locations" items={LOCATIONS} labelKey="city" />
-        </div>
+        </Prose>
       </section>
       <CtaBand heading="Hiring for this category?"
         text="Send the role and salary band. Firm rates within 24 hours, first profiles within 72 hours." />

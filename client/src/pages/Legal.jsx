@@ -1,6 +1,6 @@
 import { SITE } from '../data/content';
 import Seo from '../components/Seo';
-import { PageHead } from '../components/Blocks';
+import { PageHead, Prose } from '../components/Blocks';
 
 export function Privacy() {
   const mail = <a href={`mailto:${SITE.email}`}>{SITE.email}</a>;
@@ -12,7 +12,7 @@ export function Privacy() {
       <PageHead crumb={[{ label: 'Privacy policy' }]} title="Privacy policy"
         lead="How we collect, use and protect personal data, in line with the Digital Personal Data Protection Act, 2023." />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <div className="callout"><p><strong>Review before launch.</strong> This is a working draft covering the standard position. Have it checked against your actual data handling before the site goes live.</p></div>
 
           <h2>Who we are</h2>
@@ -45,7 +45,7 @@ export function Privacy() {
 
           <h2>Changes</h2>
           <p>We may update this policy. The current version is always the one on this page.</p>
-        </div>
+        </Prose>
       </section>
     </>
   );
@@ -60,7 +60,7 @@ export function Terms() {
       <PageHead crumb={[{ label: 'Terms' }]} title="Terms of use"
         lead="Terms governing use of this website. Recruitment services are governed separately by our MoU and work orders." />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <div className="callout"><p><strong>Review before launch.</strong> This is a working draft. Have it checked alongside your MoU so the two do not contradict each other.</p></div>
 
           <h2>About this site</h2>
@@ -86,7 +86,7 @@ export function Terms() {
 
           <h2>Governing law</h2>
           <p>These terms are governed by the laws of India. Disputes are subject to the jurisdiction of courts at Puducherry.</p>
-        </div>
+        </Prose>
       </section>
     </>
   );

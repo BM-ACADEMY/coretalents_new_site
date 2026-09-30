@@ -8,6 +8,7 @@ export function useCtForm(formType, successText) {
   const [invalid, setInvalid] = useState({});
   const [msg, setMsg] = useState(null); // { kind: 'ok' | 'err', text }
   const [sending, setSending] = useState(false);
+  const [done, setDone] = useState(false); // true after a successful submit - shows the success panel
 
   function validate(form) {
     const bad = {};
@@ -67,8 +68,8 @@ export function useCtForm(formType, successText) {
           languages: (data.languages || []).join(','),
         });
         form.reset();
-        setMsg({ kind: 'ok', text: successText });
-        requestAnimationFrame(() => form.querySelector('.form-msg')?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+        setMsg(null);
+        setDone(true);
       })
       .catch(() => {
         setMsg({ kind: 'err', text: 'Something went wrong. Please WhatsApp us instead - the button is on this page.' });
@@ -82,5 +83,8 @@ export function useCtForm(formType, successText) {
     if (name && invalid[name]) setInvalid((prev) => ({ ...prev, [name]: false }));
   }
 
-  return { invalid, msg, sending, onSubmit, onInput };
+  // back to an empty form from the success panel
+  function again() { setDone(false); setMsg(null); setInvalid({}); }
+
+  return { invalid, msg, sending, done, successText, again, onSubmit, onInput };
 }

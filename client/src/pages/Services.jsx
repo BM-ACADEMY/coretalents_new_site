@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { SERVICES, ROLES } from '../data/content';
 import Seo, { ORG_SCHEMA, serviceSchema } from '../components/Seo';
-import { CtaBand, Table, PageHead, Card, Tags } from '../components/Blocks';
+import { CtaBand, Table, PageHead, Card, Tags, Prose } from '../components/Blocks';
 import NotFound from './NotFound';
 
 export function ServicesIndex() {
@@ -15,7 +15,7 @@ export function ServicesIndex() {
       <section>
         <div className="wrap">
           <div className="cards cards-2">
-            {SERVICES.map((s) => <Card key={s.slug} accent title={s.nav} text={s.desc} to={`/services/${s.slug}`} />)}
+            {SERVICES.map((s, i) => <Card key={s.slug} index={i} accent title={s.nav} text={s.desc} to={`/services/${s.slug}`} />)}
           </div>
         </div>
       </section>
@@ -45,11 +45,11 @@ export function ServicePage() {
       <Seo title={s.title} desc={s.desc} path={`services/${s.slug}`} schema={[ORG_SCHEMA, serviceSchema(s)]} />
       <PageHead crumb={[{ label: 'Services', to: '/services' }, { label: s.nav }]} title={s.h1} lead={s.lead} />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           {s.blocks.map(([heading, kind, data]) => <ServiceBlock key={heading} heading={heading} kind={kind} data={data} />)}
           <h2>Related roles we fill</h2>
           <Tags base="roles" items={ROLES} />
-        </div>
+        </Prose>
       </section>
       <CtaBand heading={s.cta} text="Send us the details and we come back with firm rates within 24 hours." />
     </>

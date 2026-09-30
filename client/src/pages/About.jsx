@@ -1,6 +1,6 @@
 import { SITE } from '../data/content';
 import Seo, { ORG_SCHEMA, LOCAL_SCHEMA } from '../components/Seo';
-import { CtaBand, Table, PageHead } from '../components/Blocks';
+import { CtaBand, Table, PageHead, Prose } from '../components/Blocks';
 
 export default function About() {
   return (
@@ -11,7 +11,7 @@ export default function About() {
       <PageHead art="meet-the-team" crumb={[{ label: 'About' }]} title="About CoreTalents"
         lead={`The recruitment and staffing division of ${SITE.legal}, based in Puducherry.`} />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <h2>Why we exist</h2>
           <div className="callout callout-amber">
             <p><strong>To be written in the founder's own words.</strong> This is the paragraph people remember, and it should not be written by anyone else. Cover: why an academy, a job portal and a consultancy under one roof solves something a standalone consultancy cannot; what you saw in the market that made you start; who you built it for.</p>
@@ -40,7 +40,7 @@ export default function About() {
             ['GSTIN', SITE.gstin],
             ['Registered office', SITE.address],
           ]} />
-        </div>
+        </Prose>
       </section>
       <CtaBand heading="Work with us" text="Send a requirement, or empanel free and we will be ready when you have one." />
     </>

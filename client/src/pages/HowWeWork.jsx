@@ -1,5 +1,5 @@
 import Seo, { ORG_SCHEMA } from '../components/Seo';
-import { CtaBand, Table, PageHead, ProcessGrid } from '../components/Blocks';
+import { CtaBand, Table, PageHead, ProcessGrid, Prose } from '../components/Blocks';
 
 export default function HowWeWork() {
   return (
@@ -10,7 +10,7 @@ export default function HowWeWork() {
       <PageHead art="screening-resumes" crumb={[{ label: 'How we work' }]} title="How we work"
         lead="Most consultancies go quiet after they send resumes. This page sets out exactly what happens at each stage, what we commit to, and what we need from you for it to hold." />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <h2>The six stages</h2>
           <ProcessGrid />
           <h2>What you see every week</h2>
@@ -44,7 +44,7 @@ export default function HowWeWork() {
             ['Lateral and specialist', '90 days from joining'],
           ]} />
           <p>One replacement per position. The guarantee applies where the candidate resigns or is found unsuitable within the period, and we ask to be notified within 7 days of the exit so we can start sourcing the replacement immediately.</p>
-        </div>
+        </Prose>
       </section>
       <CtaBand heading="Ready to start?" text="Kick-off within 2 working days of a signed work order, first screened profiles within 72 hours." />
     </>

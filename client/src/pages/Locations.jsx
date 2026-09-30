@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ROLES, LOCATIONS } from '../data/content';
 import Seo, { ORG_SCHEMA, LOCAL_SCHEMA } from '../components/Seo';
-import { CtaBand, PageHead, Card, Tags } from '../components/Blocks';
+import { CtaBand, PageHead, Card, Tags, Prose } from '../components/Blocks';
 import NotFound from './NotFound';
 
 // Each location page must carry genuinely local content (see DEV-GUIDE section 7).
@@ -18,7 +18,7 @@ export function LocationsIndex() {
       <section>
         <div className="wrap">
           <div className="cards cards-2">
-            {LOCATIONS.map((l) => <Card key={l.slug} title={l.city} text={l.desc} to={`/locations/${l.slug}`} />)}
+            {LOCATIONS.map((l, i) => <Card key={l.slug} index={i} title={l.city} text={l.desc} to={`/locations/${l.slug}`} />)}
           </div>
         </div>
       </section>
@@ -38,7 +38,7 @@ export function LocationPage() {
       <Seo title={l.title} desc={l.desc} path={`locations/${l.slug}`} schema={schema} />
       <PageHead crumb={[{ label: 'Locations', to: '/locations' }, { label: l.nav }]} title={l.h1} lead={l.lead} />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <h2>Who hires in {l.city}</h2>
           <p>{l.industry}</p>
           <h2>Salary reality in this market</h2>
@@ -49,7 +49,7 @@ export function LocationPage() {
           <p>{l.proof}</p>
           <h2>Roles we fill most often here</h2>
           <Tags base="roles" items={ROLES} />
-        </div>
+        </Prose>
       </section>
       <CtaBand heading={`Hiring in ${l.city}?`}
         text="Send us the requirement. Firm rates within 24 hours and kick-off within 2 working days." />

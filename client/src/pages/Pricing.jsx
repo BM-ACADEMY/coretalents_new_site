@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Seo, { ORG_SCHEMA } from '../components/Seo';
-import { CtaBand, Table, PageHead } from '../components/Blocks';
+import { CtaBand, Table, PageHead, Prose } from '../components/Blocks';
 
 export default function Pricing() {
   return (
@@ -11,7 +11,7 @@ export default function Pricing() {
       <PageHead crumb={[{ label: 'Pricing' }]} title="What it costs to hire through us"
         lead="You pay only when a candidate joins. No fee for profiles, no fee for interviews, no retainer unless you specifically want one." />
       <section>
-        <div className="wrap narrow">
+        <Prose>
           <h2>How the recruitment fee is calculated</h2>
           <Table rows={[
             ['Level', 'Salary range', 'How the fee works'],
@@ -58,7 +58,7 @@ export default function Pricing() {
 
           <h2>Free options</h2>
           <p>Our job portal is free for employers &mdash; post openings, receive applications, search profiles and manage hiring yourself. Empanelment with CoreTalents is also free and carries no obligation. See <Link to="/empanelment">empanelment</Link>.</p>
-        </div>
+        </Prose>
       </section>
       <CtaBand heading="Send your requirement for firm rates"
         text="We come back in writing within 24 hours with the exact fee for your role, volume and location." />
