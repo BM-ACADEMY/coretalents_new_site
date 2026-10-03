@@ -15,7 +15,7 @@ const STEPS = ['Source', 'Screen', 'Interview', 'Join'];
 // Portrait crop on phones, 1080p elsewhere (decoding 1440p frames while seeking
 // on every scroll tick is what made the hero stutter).
 function pickSource() {
-  return window.matchMedia('(max-width: 760px)').matches ? '/video/hero-m.mp4' : '/video/hero-1080.mp4';
+  return window.matchMedia('(max-width: 760px)').matches ? '/video/homevideo-m.mp4' : '/video/homevideo.mp4';
 }
 
 // Seeks the video to follow `progress`. Only runs while the hero is on screen,
@@ -101,7 +101,7 @@ export default function ScrollHero() {
     return (
       <section className="scroll-hero is-static">
         <div className="sh-frame">
-          <img className="sh-video" src="/video/hero-poster.webp" alt="" />
+          <img className="sh-video" src="/video/homevideo-poster.webp" alt="" />
           <div className="sh-shade" style={{ opacity: 0.7 }} />
           <div className="wrap sh-stage">
             <h1>Hire faster, at volume, across Tamil Nadu</h1>
@@ -118,7 +118,7 @@ export default function ScrollHero() {
       <div className="sh-sticky">
         <motion.div className="sh-frame" style={{ scale: frameScale, borderRadius: radius }}>
           <motion.video ref={video} className="sh-video" style={{ scale }}
-            muted playsInline preload="auto" poster="/video/hero-poster.webp" aria-hidden="true" />
+            muted playsInline preload="auto" poster="/video/homevideo-poster.webp" aria-hidden="true" />
           <motion.div className="sh-shade" style={{ opacity: shade }} />
 
           <motion.div className="wrap sh-stage" style={s1} aria-hidden={stage !== 0}>
