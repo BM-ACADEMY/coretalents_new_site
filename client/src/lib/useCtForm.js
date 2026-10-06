@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { sendLead } from './api';
 import { track, getUtm } from './track';
+import { markConverted } from './popupSeen';
 
 // Shared form logic for the requirement and empanelment forms.
 // Field `name` attributes must not change - the n8n workflow depends on them.
@@ -67,6 +68,7 @@ export function useCtForm(formType, successText) {
           positions: data.positions || '',
           languages: (data.languages || []).join(','),
         });
+        markConverted(); // already converted - no popups after this
         form.reset();
         setMsg(null);
         setDone(true);

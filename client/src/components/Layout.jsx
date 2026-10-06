@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { WhatsAppIcon } from './Art';
 import Header from './Header';
 import Footer from './Footer';
+import SitePopup from './SitePopup';
 import { waLink } from '../lib/links';
 import { useSmoothScroll, scrollTop, ScrollProgress, PageCurtain, PageFade, Cursor } from './Motion';
 
@@ -101,6 +102,7 @@ export default function Layout() {
       <a className="wa-float" href={waLink()} data-context="floating" aria-label="WhatsApp us" title="WhatsApp us">
         <WhatsAppIcon size={30} />
       </a>
+      <SitePopup />
     </>
   );
 }

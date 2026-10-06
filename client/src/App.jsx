@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -13,9 +14,13 @@ import Contact from './pages/Contact';
 import { Privacy, Terms } from './pages/Legal';
 import NotFound from './pages/NotFound';
 
+// admin panel: its own chunk, outside the site layout
+const AdminApp = lazy(() => import('./admin/AdminApp'));
+
 export default function App() {
   return (
     <Routes>
+      <Route path="admin/*" element={<Suspense fallback={null}><AdminApp /></Suspense>} />
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="services" element={<ServicesIndex />} />
