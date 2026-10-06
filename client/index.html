@@ -30,34 +30,43 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXX');</script>
 -->
 <style>
-  /* First-load loader. Inline so it paints before the JS bundle arrives; main.jsx fades it out. */
+  /* First-load loader: the logo-reveal clip (public/loader.mp4), then main.jsx flies the logo into the header.
+     Inline so it paints before the JS bundle arrives. */
   #preloader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;transition:opacity .45s cubic-bezier(.16,1,.3,1),visibility .45s}
-  #preloader .pl-bg{position:absolute;inset:0;background:#fafbfd}
-  #preloader .pl-inner{position:relative}
+  /* same colour as the clip background, so the clip has no visible edge */
+  #preloader .pl-bg{position:absolute;inset:0;background:#fff}
+  #preloader .pl-stage{position:relative;width:min(94vw,820px);aspect-ratio:5/2}
+  #preloader .pl-video{
+    position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .4s;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);
+    mask-composite:intersect;
+  }
+  /* the real logo, sitting exactly on the logo in the clip's last frame; hidden until it takes over and flies */
+  #preloader img{position:absolute;left:16.979%;top:37.169%;width:66.045%;max-width:none;height:auto;opacity:0}
   #preloader.flying{pointer-events:none}
-  #preloader.flying .pl-track{opacity:0;transform:scaleX(.4);transition:opacity .3s,transform .4s}
-
+  #preloader.flying img{opacity:1}
+  #preloader.flying .pl-video{opacity:0}
   #preloader.done{opacity:0;visibility:hidden;pointer-events:none}
-  #preloader .pl-inner{display:grid;justify-items:center;gap:22px}
-  #preloader img{width:min(260px,64vw);height:auto;animation:pl-breathe 1.8s ease-in-out infinite}
-  #preloader .pl-track{position:relative;width:160px;height:4px;border-radius:999px;background:#eaf1f8;overflow:hidden}
-  #preloader .pl-track::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;border-radius:inherit;background:#ffc700;animation:pl-slide 1.1s cubic-bezier(.65,0,.35,1) infinite}
-  @keyframes pl-slide{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
-  @keyframes pl-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
   @media (prefers-reduced-motion:reduce){
-    #preloader img,#preloader .pl-track::after{animation:none}
-    #preloader .pl-track::after{width:100%}
+    #preloader .pl-video{display:none}
+    #preloader img{opacity:1}
   }
 </style>
 </head>
 <body>
 <div id="preloader" role="status" aria-label="Loading CoreTalents">
   <div class="pl-bg"></div>
-  <div class="pl-inner">
+  <div class="pl-stage">
+    <video class="pl-video" src="/loader.mp4" poster="/loader-poster.webp" width="1280" height="512" autoplay muted playsinline preload="auto" aria-hidden="true"></video>
     <img src="/logo-header.png" width="875" height="136" alt="">
-    <div class="pl-track"></div>
   </div>
 </div>
+<script>
+  // the admin panel has no loader
+  if (location.pathname.indexOf('/admin') === 0) document.getElementById('preloader').remove();
+</script>
 <div id="root"></div>
 <script type="module" src="/src/main.jsx"></script>
 </body>
