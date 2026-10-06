@@ -9,7 +9,7 @@ export const SITE = {
   phoneRaw: '919403892971',
   whatsapp: '919944509441', // CONFIRM: proposal PDF shows 9944940051
   email: 'hello@coretalents.in',
-  address: 'Lenin Street, Kuyavarpalayam, Puducherry 605008',
+  address: 'No. 78, Lenin Street, Kosapalayam, Puducherry – 605013',
   hours: 'Mon-Sat, 9:30 AM - 6:30 PM',
   instagram: 'https://instagram.com/core_talents',
   linkedin: 'https://linkedin.com/company/coretalents',
