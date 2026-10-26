@@ -5,8 +5,8 @@ import { CtaBand, Table, PageHead, Prose } from '../components/Blocks';
 export default function Pricing() {
   return (
     <>
-      <Seo title="Recruitment Agency Fees & Engagement Models | CoreTalents"
-        desc="You pay only when a candidate joins. How our fee is calculated, standard commercial terms, and published job promotion rates."
+      <Seo title="Recruitment Agency Fees & Pricing in TN | CoreTalents"
+        desc="You pay only when a candidate joins: how our fee is calculated, our standard commercial terms and published job promotion rates. View our pricing now."
         path="pricing" schema={[ORG_SCHEMA]} />
       <PageHead crumb={[{ label: 'Pricing' }]} title="What it costs to hire through us"
         lead="You pay only when a candidate joins. No fee for profiles, no fee for interviews, no retainer unless you specifically want one." />
