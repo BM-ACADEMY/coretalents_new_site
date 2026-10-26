@@ -9,8 +9,8 @@ import { waLink, portalShort } from '../lib/links';
 export default function Contact() {
   return (
     <>
-      <Seo title="Contact CoreTalents | Share Your Hiring Requirement"
-        desc="Send your hiring requirement and get a written proposal with firm rates within 24 hours. WhatsApp, phone and email."
+      <Seo title="Contact Our Recruitment Agency in Puducherry | CoreTalents"
+        desc="Send your role, positions, salary band and timeline and get a written proposal with firm rates within 24 hours. Call, WhatsApp or email us today."
         path="contact" schema={[ORG_SCHEMA, LOCAL_SCHEMA]} />
       <PageHead art="contact-us" crumb={[{ label: 'Contact' }]} title="Tell us what you need to hire"
         lead="Send the role, positions, salary band, location and timeline. We come back with a written proposal and firm rates within 24 hours." />

@@ -35,7 +35,7 @@ export function ArticlePage() {
 
   return (
     <>
-      <Seo title={`${a.title} | CoreTalents`} desc={a.desc} path={`insights/${a.slug}`} schema={[ORG_SCHEMA]} />
+      <Seo title={a.seoTitle || `${a.title} | CoreTalents`} desc={a.metaDesc || a.desc} path={`insights/${a.slug}`} schema={[ORG_SCHEMA]} />
       <PageHead crumb={[{ label: 'Insights', to: '/insights' }, { label: a.title }]} title={a.title} lead={a.desc} />
       <section>
         <div className="wrap narrow">

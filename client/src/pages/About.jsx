@@ -5,8 +5,8 @@ import { CtaBand, Table, PageHead, Prose } from '../components/Blocks';
 export default function About() {
   return (
     <>
-      <Seo title={`About CoreTalents | Recruitment Division of ${SITE.legal}`}
-        desc={`CoreTalents is the recruitment and staffing division of ${SITE.legal}, based in Puducherry, with a training academy and job portal behind it.`}
+      <Seo title="About Us: Recruitment Agency in Puducherry | CoreTalents"
+        desc="CoreTalents is a recruitment and staffing agency based in Puducherry, serving employers across Tamil Nadu. Learn how we work and talk to our team today."
         path="about" schema={[ORG_SCHEMA, LOCAL_SCHEMA]} />
       <PageHead art="meet-the-team" crumb={[{ label: 'About' }]} title="About CoreTalents"
         lead={`The recruitment and staffing division of ${SITE.legal}, based in Puducherry.`} />
