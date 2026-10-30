@@ -103,6 +103,7 @@ export default function SitePopup() {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 
+  if (typeof document === 'undefined') return null; // build-time prerender: no popup
   return createPortal(
     <AnimatePresence>
       {current && (

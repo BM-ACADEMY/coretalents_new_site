@@ -54,6 +54,27 @@ Clean URLs — `.html` illa: `/services/bulk-hiring`, `/roles/it-technology`, `/
 
 Puthu service / role / location / article add panna `content.js`-la object add pannu, appuram `public/sitemap.xml`-la URL add pannu.
 
+## SEO prerender (build output)
+
+`npm run build` now does three steps: normal Vite build, a server render of every route, and `scripts/prerender.mjs`, which writes one HTML file per page with its own title, meta description, canonical, JSON-LD and page text:
+
+```
+dist/index.html                     -> /
+dist/services.html                  -> /services
+dist/services/bulk-hiring.html      -> /services/bulk-hiring
+...                                 (33 pages, list comes from content.js)
+```
+
+So "View Page Source" shows the real tags, and Google / WhatsApp / LinkedIn read them without running JavaScript. In the browser the app boots exactly as before (`main.jsx` removes the static head tags first so nothing is doubled).
+
+- Upload the **whole `dist` folder** (including `.htaccess` and the `services/`, `roles/`, `locations/`, `insights/` folders).
+- **Vercel / Netlify:** works as is (`cleanUrls` in `vercel.json`; Netlify serves `services.html` at `/services` by default).
+- **Apache / cPanel / Hostinger:** `dist/.htaccess` handles it (needs `mod_rewrite` and `AllowOverride All`).
+- **nginx:** `try_files $uri $uri.html /index.html;`
+- New page in `content.js` -> it is prerendered automatically on the next build. A new static route in `App.jsx` must also be added to `STATIC` in `src/entry-server.jsx`.
+- `npm run build:spa` = old build without prerendering (fallback only).
+- Check after deploy: open any page -> right-click -> **View page source** -> the `<title>` must be the page's own title.
+
 ## Deploy (Vercel)
 
 `vercel.json` already ready: SPA rewrite (deep link refresh 404 aagaadhu), asset caching, security headers, pazhaya `.html` URLs-kku 301 redirect.
