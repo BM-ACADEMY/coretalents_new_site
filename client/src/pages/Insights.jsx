@@ -7,8 +7,8 @@ import NotFound from './NotFound';
 export function InsightsIndex() {
   return (
     <>
-      <Seo title="Hiring Insights & Salary Benchmarks | CoreTalents"
-        desc="Recruitment fees, salary benchmarks, drive costs and offer drop-off - written for employers hiring in Tamil Nadu."
+      <Seo title="Hiring Insights & Salary Benchmarks, India | CoreTalents"
+        desc="Recruitment fees, salary benchmarks, walk-in drive costs and offer drop-off, written for employers hiring in Tamil Nadu. Read our latest hiring insights."
         path="insights" schema={[ORG_SCHEMA]} />
       <PageHead art="researching" crumb={[{ label: 'Insights' }]} title="Insights"
         lead="Hiring costs, salary benchmarks and what actually makes a mandate close. Written for the person doing the hiring." />
