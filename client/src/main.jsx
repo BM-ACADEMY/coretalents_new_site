@@ -9,6 +9,10 @@ import './styles/style.css';
 captureUtm();
 initClickTracking();
 
+// Prerendered pages carry their own head tags (scripts/prerender.mjs). React renders
+// its own for every page, so drop the static copies first to avoid doubles.
+document.querySelectorAll('head [data-ssr]').forEach((el) => el.remove());
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
