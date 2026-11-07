@@ -290,6 +290,15 @@ export const LOCATIONS = [
 
 export const ARTICLES = [
   {
+    slug: 'post-deepavali-hiring-plan-tamil-nadu',
+    seoTitle: 'Post-Diwali Hiring Plan for Tamil Nadu Firms | CoreTalents',
+    title: 'Post-Deepavali hiring: how employers in Tamil Nadu can plan ahead',
+    metaDesc: 'Deepavali shifts resignations, offers and joining dates. Use this week-by-week plan to fill roles faster after the festival. Read the hiring plan now.',
+    desc: 'What changes in hiring around Diwali, and a simple four-week plan to fill your roles faster once the festival is over.',
+    published: '2026-11-07',
+    link: '/services/bulk-hiring',
+  },
+  {
     slug: 'recruitment-agency-fees-india',
     seoTitle: 'Recruitment Agency Fees in India Explained | CoreTalents',
     title: 'What recruitment agencies actually charge in India',

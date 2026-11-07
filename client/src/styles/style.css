@@ -336,6 +336,7 @@ tbody tr:nth-child(even){background:#f8fafc}
 .post h3{margin:0 0 .35em;font-size:1.2rem}
 .post h3 a{color:var(--ink)}
 .post p{margin:0 0 .7em;font-size:.97rem}
+.article-meta{font-size:.88rem;color:var(--muted);margin:0 0 1.4em}
 .post .meta{display:inline-block;font-size:.8rem;font-weight:600;color:var(--accent-deep);background:var(--accent-soft);border-radius:var(--pill);padding:3px 11px}
 
 /* ---------- footer ---------- */
