@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { ARTICLES } from '../data/content';
-import Seo, { ORG_SCHEMA } from '../components/Seo';
-import { CtaBand, PageHead } from '../components/Blocks';
+import Seo, { ORG_SCHEMA, articleSchema } from '../components/Seo';
+import { CtaBand, PageHead, Prose } from '../components/Blocks';
+import { ARTICLE_BODIES } from './articles';
 import NotFound from './NotFound';
 
 export function InsightsIndex() {
@@ -18,7 +19,7 @@ export function InsightsIndex() {
             <div className="post" key={a.slug}>
               <h3><Link to={`/insights/${a.slug}`}>{a.title}</Link></h3>
               <p>{a.desc}</p>
-              <div className="meta">Coming soon</div>
+              <div className="meta">{a.published ? formatDate(a.published) : 'Coming soon'}</div>
             </div>
           ))}
         </div>
@@ -28,10 +29,31 @@ export function InsightsIndex() {
   );
 }
 
+function formatDate(iso) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
 export function ArticlePage() {
   const { slug } = useParams();
   const a = ARTICLES.find((x) => x.slug === slug);
   if (!a) return <NotFound />;
+  const Body = ARTICLE_BODIES[a.slug];
+
+  if (Body) {
+    return (
+      <>
+        <Seo title={a.seoTitle} desc={a.metaDesc} path={`insights/${a.slug}`} schema={[ORG_SCHEMA, articleSchema(a)]} />
+        <PageHead crumb={[{ label: 'Insights', to: '/insights' }, { label: a.title }]} title={a.title} lead={a.desc} />
+        <section>
+          <Prose>
+            <p className="article-meta">By the CoreTalents team &middot; <time dateTime={a.published}>{formatDate(a.published)}</time></p>
+            <Body />
+          </Prose>
+        </section>
+        <CtaBand heading="Planning your post-festival hiring?" text="Send us the requirement and get a written proposal within 24 hours." />
+      </>
+    );
+  }
 
   return (
     <>
