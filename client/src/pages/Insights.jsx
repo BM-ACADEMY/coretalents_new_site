@@ -57,7 +57,8 @@ export function ArticlePage() {
 
   return (
     <>
-      <Seo title={a.seoTitle || `${a.title} | CoreTalents`} desc={a.metaDesc || a.desc} path={`insights/${a.slug}`} schema={[ORG_SCHEMA]} />
+      {/* SEO-08: placeholder article - keep out of Google until the real article is written. */}
+      <Seo title={a.seoTitle || `${a.title} | CoreTalents`} desc={a.metaDesc || a.desc} path={`insights/${a.slug}`} schema={[ORG_SCHEMA]} noindex />
       <PageHead crumb={[{ label: 'Insights', to: '/insights' }, { label: a.title }]} title={a.title} lead={a.desc} />
       <section>
         <div className="wrap narrow">

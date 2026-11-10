@@ -1,6 +1,6 @@
 # Tasks
 
-Last updated: 7 Nov 2026. Update this file in every pull request. Status: `[ ]` open, `[x]` done. Put the proof link after each finished task.
+Last updated: 10 Nov 2026. Update this file in every pull request. Status: `[ ]` open, `[x]` done. Put the proof link after each finished task.
 
 Go-live is blocked until section A items 1 to 3 are done and the go-live checklist passes (`docs/GO_LIVE_CHECKLIST.md`). Meta ads must not start until a test lead receives the automatic reply.
 
@@ -13,6 +13,7 @@ Go-live is blocked until section A items 1 to 3 are done and the go-live checkli
 | D3 | Do internal alerts use WhatsApp templates or email? | Email for internal alerts, WhatsApp for clients and candidates, to avoid template limits | Kamar |
 | D4 | One tracker: the CRM Google Sheet. The telecaller call log becomes a tab in it | Yes | Kamar |
 | D5 | Domain of the job platform: velaivaaipu.in or velaivaaipu.com | Confirm and fix the footer link | Kamar |
+| D6 | Office address (SEO-06): 'No. 78, Lenin Street, Kosapalayam – 605013' (footer/contact, `SITE.address`) or 'Lenin Street, Kuyavarpalayam – 605008' (schema in `Seo.jsx` + Puducherry page)? | Pick one; it must match the Google Business Profile exactly | Kamar |
 
 ## A. Client side (Kamar's team)
 
@@ -59,6 +60,12 @@ Go-live is blocked until section A items 1 to 3 are done and the go-live checkli
 2. [ ] No keys, tokens or passwords in the repo (check history too); `.env.example` lists names only
 3. [ ] README sections marked TODO are filled in
 4. [ ] Access to the CRM sheet limited to the people in the routing table
+
+## C. SEO (from the site audit of 26 Oct 2026)
+
+1. [ ] **SEO-06 Office address (NAP).** After D6 is decided, use the one address in `client/src/data/content.js` (`SITE.address` and the Puducherry page text) and in `ORG_SCHEMA` / `LOCAL_SCHEMA` in `client/src/components/Seo.jsx`. Owner: Aakash, after Kamar confirms
+2. [ ] **SEO-07 WhatsApp number.** `SITE.whatsapp` in `client/src/data/content.js` has a CONFIRM note (919944509441 vs 9944940051 in the proposal PDF). Set the confirmed number (see D1) and remove the note. Owner: Aakash, after Kamar confirms
+3. [x] **SEO-08 Noindex the 6 placeholder Insights articles.** Pages that show "Article to be written" now output `<meta name="robots" content="noindex">`, and their 6 URLs are removed from `client/public/sitemap.xml`. When an article is written, add it to `ARTICLE_BODIES` (noindex goes away by itself) and add its URL back to the sitemap. Branch: `seo-updates`
 
 ## Ownership (fill in)
 
