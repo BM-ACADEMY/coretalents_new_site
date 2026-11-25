@@ -12,13 +12,12 @@ export default function About() {
         lead={`The recruitment and staffing division of ${SITE.legal}, based in Puducherry.`} />
       <section>
         <Prose>
-          <h2>Why we exist</h2>
-          <div className="callout callout-amber">
-            <p><strong>To be written in the founder's own words.</strong> This is the paragraph people remember, and it should not be written by anyone else. Cover: why an academy, a job portal and a consultancy under one roof solves something a standalone consultancy cannot; what you saw in the market that made you start; who you built it for.</p>
-          </div>
-
+          {/* TODO (founder, in their own words):
+              1. "Why we exist": why an academy, a job portal and a consultancy under one roof, what
+                 they saw in the market that made them start, who they built it for.
+              2. A short bio under "The founder": background, why recruitment, what they handle personally. */}
           <h2>The founder</h2>
-          <p><strong>Kamarudeen B</strong>, Founder. [Short bio to be added &mdash; background, why recruitment, what you handle personally.] Corporate buyers want a named person accountable for their mandate, so this section matters more than it looks.</p>
+          <p><strong>Kamarudeen B</strong>, Founder.</p>
 
           <h2>The wider group</h2>
           <Table rows={[
@@ -35,6 +34,7 @@ export default function About() {
 
           <h2>Registered entity</h2>
           <Table rows={[
+            ['Detail', 'Registered as'],
             ['Legal name', SITE.legal],
             ['CIN', SITE.cin],
             ['GSTIN', SITE.gstin],
