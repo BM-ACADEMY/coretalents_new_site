@@ -13,7 +13,7 @@ export const SITE = {
   hours: 'Mon-Sat, 9:30 AM - 6:30 PM',
   instagram: 'https://instagram.com/core_talents',
   linkedin: 'https://linkedin.com/company/coretalents',
-  portal: 'https://velaivaaipu.com',
+  portal: 'https://velaivaaipu.in',
   cin: 'U62011PY2026PTC009819',
   gstin: '34ABGCA7083D1ZS',
 };

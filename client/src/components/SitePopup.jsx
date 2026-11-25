@@ -27,7 +27,8 @@ export default function SitePopup() {
   const reduce = useReducedMotion();
   const [popups, setPopups] = useState([]);
   const [current, setCurrent] = useState(null);
-  const [loaderGone, setLoaderGone] = useState(() => !document.getElementById('preloader'));
+  // `document` does not exist during the build-time prerender
+  const [loaderGone, setLoaderGone] = useState(() => typeof document !== 'undefined' && !document.getElementById('preloader'));
   const box = useRef(null);
   const lastFocus = useRef(null);
   const skip = SKIP_PAGES.some((p) => pathname === p || pathname.startsWith(`${p}/`));

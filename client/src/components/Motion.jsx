@@ -105,7 +105,9 @@ export function CountUp({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
   const m = /^([^\d]*)([\d,]+)(.*)$/.exec(value);
-  const [shown, setShown] = useState(m ? `${m[1]}0${m[3]}` : value);
+  // starts on the real number, so the prerendered page (and a phone where the
+  // script is slow or fails) never reads "0+"
+  const [shown, setShown] = useState(value);
 
   useEffect(() => {
     if (!m || !inView) return undefined;
@@ -114,6 +116,7 @@ export function CountUp({ value }) {
     const ctrl = animate(0, target, {
       duration: 1.8, ease: EASE,
       onUpdate: (v) => setShown(`${m[1]}${Math.round(v).toLocaleString('en-IN')}${m[3]}`),
+      onComplete: () => setShown(value),
     });
     return () => ctrl.stop();
   }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps

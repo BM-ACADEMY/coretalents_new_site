@@ -223,8 +223,12 @@ function LoopVideo({ name, className = 'stack-video', eager = false, active = tr
     io.observe(ref.current);
     return () => io.disconnect();
   }, [near]);
+  // The still is also the background: once play() has been called the browser drops
+  // the poster, so a clip that is slow, blocked or paused early would show blank.
+  const still = near ? `/video/${name}.webp` : undefined;
   return (
-    <video ref={ref} className={className} src={`/video/${name}.mp4`} poster={near ? `/video/${name}.webp` : undefined}
+    <video ref={ref} className={className} src={`/video/${name}.mp4`} poster={still}
+      style={still && { background: `url(${still}) center / cover` }}
       muted loop playsInline preload={eager ? 'auto' : 'none'} aria-hidden="true" />
   );
 }
@@ -257,9 +261,18 @@ export function ServiceStack({ items }) {
   // only the card on top plays its video
   const [top, setTop] = useState(0);
   useMotionValueEvent(scrollYProgress, 'change', (v) => setTop(Math.min(items.length - 1, Math.floor(v * items.length))));
+  // on phones the cards are a plain list (see style.css), so every card on screen plays
+  const [isList, setIsList] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 760px)');
+    const sync = () => setIsList(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
   return (
     <div className="stack" ref={ref}>
-      {items.map((s, i) => <StackCard key={s.slug} item={s} i={i} total={items.length} progress={scrollYProgress} active={i === top} />)}
+      {items.map((s, i) => <StackCard key={s.slug} item={s} i={i} total={items.length} progress={scrollYProgress} active={isList || i === top} />)}
     </div>
   );
 }
