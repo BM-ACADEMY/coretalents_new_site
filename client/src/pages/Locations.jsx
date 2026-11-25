@@ -10,8 +10,8 @@ import NotFound from './NotFound';
 export function LocationsIndex() {
   return (
     <>
-      <Seo title="Where We Hire | Recruitment Across Tamil Nadu | CoreTalents"
-        desc="Recruitment and staffing across Puducherry, Chennai, Villupuram, Cuddalore and the Hosur belt."
+      <Seo title="Recruitment Agency in Tamil Nadu & Puducherry | CoreTalents"
+        desc="Recruitment and staffing across Puducherry, Chennai, Villupuram, Cuddalore and the Hosur belt, with local sourcing in each market. Find your city now."
         path="locations" schema={[ORG_SCHEMA]} />
       <PageHead art="location-search" crumb={[{ label: 'Locations' }]} title="Where we hire"
         lead="Core coverage across Tamil Nadu and Puducherry, with a Kannada sourcing corridor into the Hosur belt." />
@@ -35,7 +35,7 @@ export function LocationPage() {
   const schema = l.slug === 'puducherry' ? [ORG_SCHEMA, LOCAL_SCHEMA] : [ORG_SCHEMA];
   return (
     <>
-      <Seo title={l.title} desc={l.desc} path={`locations/${l.slug}`} schema={schema} />
+      <Seo title={l.title} desc={l.metaDesc || l.desc} path={`locations/${l.slug}`} schema={schema} />
       <PageHead crumb={[{ label: 'Locations', to: '/locations' }, { label: l.nav }]} title={l.h1} lead={l.lead} />
       <section>
         <Prose>

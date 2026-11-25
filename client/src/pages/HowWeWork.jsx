@@ -4,8 +4,8 @@ import { CtaBand, Table, PageHead, ProcessGrid, Prose } from '../components/Bloc
 export default function HowWeWork() {
   return (
     <>
-      <Seo title="How Our Recruitment Process Works | CoreTalents"
-        desc="Six stages from requirement to joining, weekly funnel reporting, and what we need from you for the timeline to hold."
+      <Seo title="Our Recruitment Process, Step by Step | CoreTalents"
+        desc="Six clear stages from requirement to joining, weekly funnel reporting and the inputs we need from you to hold the timeline. See how we work with you."
         path="how-we-work" schema={[ORG_SCHEMA]} />
       <PageHead art="screening-resumes" crumb={[{ label: 'How we work' }]} title="How we work"
         lead="Most consultancies go quiet after they send resumes. This page sets out exactly what happens at each stage, what we commit to, and what we need from you for it to hold." />

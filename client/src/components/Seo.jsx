@@ -65,3 +65,19 @@ export function serviceSchema(s) {
     description: s.desc,
   };
 }
+
+// BlogPosting schema for written Insights articles.
+export function articleSchema(a) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: a.title,
+    description: a.metaDesc || a.desc,
+    datePublished: a.published,
+    dateModified: a.updated || a.published,
+    mainEntityOfPage: `${SITE.domain}/insights/${a.slug}`,
+    inLanguage: 'en-IN',
+    author: { '@type': 'Organization', name: 'CoreTalents', url: SITE.domain },
+    publisher: { '@type': 'Organization', name: 'CoreTalents', url: SITE.domain },
+  };
+}

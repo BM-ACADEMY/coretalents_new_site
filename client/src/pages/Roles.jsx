@@ -7,8 +7,8 @@ import NotFound from './NotFound';
 export function RolesIndex() {
   return (
     <>
-      <Seo title="Roles We Recruit For | CoreTalents"
-        desc="Voice and back office, IT, sales, digital and support roles recruited across Tamil Nadu and Puducherry."
+      <Seo title="Roles We Recruit For in Tamil Nadu, Puducherry | CoreTalents"
+        desc="Voice, back office, IT, sales, digital and support roles, for freshers and experienced hires across Tamil Nadu and Puducherry. Find your role and enquire."
         path="roles" schema={[ORG_SCHEMA]} />
       <PageHead art="people-search" crumb={[{ label: 'Roles' }]} title="Roles we hire for"
         lead="Freshers and experienced, across South India." />
@@ -31,7 +31,7 @@ export function RolePage() {
 
   return (
     <>
-      <Seo title={r.title} desc={r.desc} path={`roles/${r.slug}`} schema={[ORG_SCHEMA]} />
+      <Seo title={r.title} desc={r.metaDesc || r.desc} path={`roles/${r.slug}`} schema={[ORG_SCHEMA]} />
       <PageHead crumb={[{ label: 'Roles', to: '/roles' }, { label: r.nav }]} title={r.h1} lead={r.lead} />
       <section>
         <Prose>

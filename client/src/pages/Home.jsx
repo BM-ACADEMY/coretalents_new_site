@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Recruitment & Staffing Agency in Puducherry & Chennai | CoreTalents"
-        desc="Bulk hiring, language-specific recruitment and campus drives across Tamil Nadu. You pay only when a candidate joins. Free empanelment, no obligation."
+        title="Recruitment & Staffing Agency, Puducherry & TN | CoreTalents"
+        desc="Bulk, language-specific and campus hiring across Tamil Nadu and Puducherry. Pay only when your candidate joins. Share your hiring requirement today."
         schema={[ORG_SCHEMA, LOCAL_SCHEMA]}
       />
 

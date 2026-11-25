@@ -6,8 +6,8 @@ export function Privacy() {
   const mail = <a href={`mailto:${SITE.email}`}>{SITE.email}</a>;
   return (
     <>
-      <Seo title="Privacy Policy | CoreTalents"
-        desc="How CoreTalents collects, uses and protects personal data under the Digital Personal Data Protection Act, 2023."
+      <Seo title="Privacy Policy: How We Protect Your Data | CoreTalents"
+        desc="How CoreTalents collects, uses and protects personal data under India's Digital Personal Data Protection Act, 2023. Read our full privacy policy here."
         path="privacy" />
       <PageHead crumb={[{ label: 'Privacy policy' }]} title="Privacy policy"
         lead="How we collect, use and protect personal data, in line with the Digital Personal Data Protection Act, 2023." />
@@ -54,8 +54,8 @@ export function Privacy() {
 export function Terms() {
   return (
     <>
-      <Seo title="Terms of Use | CoreTalents"
-        desc="Terms governing use of the CoreTalents website. Recruitment services are governed by our MoU and work orders."
+      <Seo title="Terms of Use for the CoreTalents Website | CoreTalents"
+        desc="The terms that govern use of the CoreTalents website. Recruitment services are covered separately by our MoU and work orders. Read the full terms here."
         path="terms" />
       <PageHead crumb={[{ label: 'Terms' }]} title="Terms of use"
         lead="Terms governing use of this website. Recruitment services are governed separately by our MoU and work orders." />

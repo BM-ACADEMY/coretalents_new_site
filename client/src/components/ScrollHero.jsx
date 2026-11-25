@@ -69,7 +69,7 @@ function CtaPair() {
 export default function ScrollHero() {
   const reduce = useReducedMotion();
   // on a first load, hold the intro until the loader logo has flown into the header
-  const [intro] = useState(() => (document.getElementById('preloader') ? 1.3 : 0));
+  const [intro] = useState(() => (typeof document !== 'undefined' && document.getElementById('preloader') ? 1.3 : 0));
   const section = useRef(null);
   const video = useRef(null);
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });

@@ -6,8 +6,8 @@ import StepFlow from '../components/StepFlow';
 export default function Empanelment() {
   return (
     <>
-      <Seo title="Empanel CoreTalents as Your Recruitment Partner - Free, No Obligation"
-        desc="Sign a free MoU with no cost and no obligation. Terms fixed in advance so a live requirement needs only a one-page work order."
+      <Seo title="Empanel a Recruitment Partner, Free of Cost | CoreTalents"
+        desc="Sign a free MoU with no cost and no obligation, with terms fixed in advance so a live role needs only a one-page work order. Start your empanelment now."
         path="empanelment" schema={[ORG_SCHEMA]} />
       <PageHead art="agreement" crumb={[{ label: 'Empanelment' }]} title="Empanel us as a hiring partner — free, no obligation"
         lead="Most companies do not have a requirement the day they find a consultancy. Empanelment solves that. You sign a simple MoU at no cost, it commits you to nothing, and when a role does open you have a partner already set up rather than starting from scratch under time pressure." />

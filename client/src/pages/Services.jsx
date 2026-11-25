@@ -7,8 +7,8 @@ import NotFound from './NotFound';
 export function ServicesIndex() {
   return (
     <>
-      <Seo title="Recruitment & Staffing Services | CoreTalents"
-        desc="Recruitment, bulk hiring, language-specific sourcing, campus drives and job promotion across Tamil Nadu and Puducherry."
+      <Seo title="Recruitment & Staffing Services in Tamil Nadu | CoreTalents"
+        desc="Recruitment, bulk hiring, language-specific sourcing, campus drives and job promotion. No fee until a candidate joins. Explore our staffing services."
         path="services" schema={[ORG_SCHEMA]} />
       <PageHead art="hire" crumb={[{ label: 'Services' }]} title="Our services"
         lead="Recruitment paid only on joining, plus a flat-rate option for promoting your opening." />
@@ -42,7 +42,7 @@ export function ServicePage() {
 
   return (
     <>
-      <Seo title={s.title} desc={s.desc} path={`services/${s.slug}`} schema={[ORG_SCHEMA, serviceSchema(s)]} />
+      <Seo title={s.title} desc={s.metaDesc || s.desc} path={`services/${s.slug}`} schema={[ORG_SCHEMA, serviceSchema(s)]} />
       <PageHead crumb={[{ label: 'Services', to: '/services' }, { label: s.nav }]} title={s.h1} lead={s.lead} />
       <section>
         <Prose>
