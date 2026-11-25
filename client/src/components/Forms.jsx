@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useCtForm } from '../lib/useCtForm';
+import { lockScroll } from './Motion';
 
 const EASE = [0.16, 1, 0.3, 1];
 const CONFETTI_COLORS = ['#ffc700', '#12395e', '#ffdd55', '#1d6fc4', '#0b2238'];
@@ -44,10 +45,22 @@ function SuccessPanel({ title, text, onAgain }) {
   const btn = useRef(null);
   useEffect(() => {
     const t = setTimeout(() => btn.current?.focus({ preventScroll: true }), 1400);
-    const esc = (e) => { if (e.key === 'Escape') onAgain(); };
-    window.addEventListener('keydown', esc);
-    return () => { clearTimeout(t); window.removeEventListener('keydown', esc); };
+    const keys = (e) => {
+      if (e.key === 'Escape') onAgain();
+      // "Done" is the only control, so Tab stays on it
+      if (e.key === 'Tab') { e.preventDefault(); btn.current?.focus({ preventScroll: true }); }
+    };
+    window.addEventListener('keydown', keys);
+    return () => { clearTimeout(t); window.removeEventListener('keydown', keys); };
   }, [onAgain]);
+  // hold the page still while open (style.css covers touch), then hand focus back to the form
+  useEffect(() => {
+    lockScroll(true);
+    return () => {
+      lockScroll(false);
+      document.querySelector('.form-card button[type=submit]')?.focus({ preventScroll: true });
+    };
+  }, []);
   const rise = (d) => ({
     initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 },
     transition: { duration: 0.7, delay: d, ease: EASE },
@@ -94,11 +107,12 @@ function SuccessPanel({ title, text, onAgain }) {
 
 function Field({ id, name, label, hint, err, invalid, as = 'input', children, ...rest }) {
   const Tag = as;
+  const bad = Boolean(invalid?.[name]);
   return (
     <div className={invalid?.[name] ? 'field invalid' : 'field'}>
       <label htmlFor={id}>{label}{hint && <> <span className="hint">{hint}</span></>}</label>
-      {children || <Tag id={id} name={name} {...rest} />}
-      {err && <div className="err">{err}</div>}
+      {children || <Tag id={id} name={name} aria-invalid={bad || undefined} aria-describedby={bad && err ? `${id}-err` : undefined} {...rest} />}
+      {err && <div className="err" id={`${id}-err`}>{err}</div>}
     </div>
   );
 }
@@ -144,8 +158,8 @@ export function RequirementForm() {
       </div>
       <Field invalid={v} id="rf-exp" name="experience" label="Experience and qualification" hint="optional" placeholder="e.g. Freshers, or 2+ years in voice process" />
       <div className="field">
-        <label>Language requirement</label>
-        <div className="checks">
+        <label id="rf-lang">Language requirement</label>
+        <div className="checks" role="group" aria-labelledby="rf-lang">
           {LANGS.map((l) => <label key={l}><input type="checkbox" name="languages" value={l} /> {l}</label>)}
         </div>
       </div>

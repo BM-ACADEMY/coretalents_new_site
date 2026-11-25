@@ -330,6 +330,10 @@ tbody tr:nth-child(even){background:#f8fafc}
 .form-side ul{padding-left:1.1em}
 .form-side li{font-size:.94rem}
 .form-side .btn{white-space:normal}
+/* the page stays put behind the success popup */
+html:has(.form-success){overflow:hidden}
+/* room under the footer so the floating WhatsApp button does not cover the last line */
+@media (max-width:760px){.site-footer .footer-bottom{padding-bottom:96px}}
 
 /* ---------- article list ---------- */
 .post{padding:24px 26px;margin-bottom:12px;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
@@ -914,6 +918,7 @@ th{background:linear-gradient(90deg,var(--navy),var(--navy-deep))}
   .page-head-art{justify-self:center;max-width:300px}
   .cards-3,.process{grid-template-columns:repeat(2,1fr)}
   .form-grid{grid-template-columns:1fr;gap:32px}
+  .form-first > .form-side{order:-1} /* empanelment: the form before the long explanation */
   .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
   .coverage{grid-template-columns:1fr;gap:28px;text-align:center}
   .coverage > :last-child{justify-self:center;max-width:320px}

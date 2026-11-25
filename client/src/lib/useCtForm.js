@@ -89,7 +89,11 @@ export function useCtForm(formType, successText) {
   // clear a field's error state as the user types
   function onInput(e) {
     const name = e.target.name;
-    if (name && invalid[name]) setInvalid((prev) => ({ ...prev, [name]: false }));
+    if (!name || !invalid[name]) return;
+    const next = { ...invalid, [name]: false };
+    setInvalid(next);
+    // nothing left highlighted, so the "check the fields" message goes too
+    if (!Object.values(next).some(Boolean)) setMsg(null);
   }
 
   // back to an empty form from the success panel

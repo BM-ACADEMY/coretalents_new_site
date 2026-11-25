@@ -13,7 +13,7 @@ export default function Empanelment() {
         lead="Most companies do not have a requirement the day they find a consultancy. Empanelment solves that. You sign a simple MoU at no cost, it commits you to nothing, and when a role does open you have a partner already set up rather than starting from scratch under time pressure." />
       <section>
         <div className="wrap">
-          <div className="form-grid">
+          <div className="form-grid form-first">
             <div>
               <h2 style={{ marginTop: 0 }}>What empanelment means</h2>
               <Table rows={[
