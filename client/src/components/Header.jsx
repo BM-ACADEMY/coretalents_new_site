@@ -79,7 +79,8 @@ export default function Header() {
           {open ? <X size={18} aria-hidden="true" /> : <List size={18} aria-hidden="true" />}
           {open ? 'Close' : 'Menu'}
         </button>
-        <nav className={open ? 'nav open' : 'nav'} data-lenis-prevent>
+        {/* a link to the page you are on changes no path, so close the menu on any link tap */}
+        <nav className={open ? 'nav open' : 'nav'} data-lenis-prevent onClick={(e) => { if (e.target.closest('a')) setOpen(false); }}>
           <Dropdown label="Services" base="services" items={SERVICES} />
           <Dropdown label="Roles" base="roles" items={ROLES} />
           <Dropdown label="Locations" base="locations" items={LOCATIONS} />

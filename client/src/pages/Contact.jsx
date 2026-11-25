@@ -20,7 +20,7 @@ export default function Contact() {
             <div><RequirementForm /></div>
             <div className="form-side">
               <h3>Rather talk?</h3>
-              <p><a className="btn btn-wa btn-block" href={waLink('contact')} data-context="contact-page"><WhatsAppIcon size={19} />WhatsApp us now</a></p>
+              <p><a className="btn btn-wa btn-block" href={waLink('contact', 'a hiring requirement')} data-context="contact-page"><WhatsAppIcon size={19} />WhatsApp us now</a></p>
               <p><a className="btn btn-outline btn-block" href={`tel:+${SITE.phoneRaw}`}><Phone size={17} aria-hidden="true" />Call {SITE.phone}</a></p>
               <p style={{ fontSize: '.92rem', color: 'var(--muted)' }}>{SITE.hours}</p>
 

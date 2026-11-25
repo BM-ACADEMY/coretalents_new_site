@@ -19,8 +19,14 @@ export function useCtForm(formType, successText) {
       const v = input.value.trim();
       if (input.required && !v) bad[input.name] = true;
       else if (input.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) bad[input.name] = true;
-      else if (input.dataset.phone && v && !/^[6-9]\d{9}$/.test(v.replace(/\D/g, '').slice(-10))) bad[input.name] = true;
+      // 10-digit mobile, optionally with +91, 91 or 0 in front; nothing else
+      else if (input.dataset.phone && v && !/^(\+?91|0)?[6-9]\d{9}$/.test(v.replace(/[\s().-]/g, ''))) bad[input.name] = true;
+      // the form is noValidate, so min and whole numbers are checked here
+      else if (input.type === 'number' && v && !input.validity.valid) bad[input.name] = true;
     });
+    const lo = form.elements.salary_min;
+    const hi = form.elements.salary_max;
+    if (lo?.value && hi?.value && Number(hi.value) < Number(lo.value)) bad.salary_max = true;
     return bad;
   }
 
@@ -61,6 +67,7 @@ export function useCtForm(formType, successText) {
     data.submitted_at = new Date().toISOString();
     data.utm = getUtm();
 
+    setMsg(null);
     setSending(true);
     sendLead(data)
       .then(() => {

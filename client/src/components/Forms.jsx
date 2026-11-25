@@ -110,9 +110,10 @@ function FormShell({ form, children, button, note, doneTitle }) {
       <AnimatePresence>
         {done && <SuccessPanel title={doneTitle} text={successText} onAgain={again} />}
       </AnimatePresence>
-      <div className={msg ? `form-msg ${msg.kind}` : 'form-msg'}>{msg?.text}</div>
       <div className="hp"><label>Leave this empty<input type="text" name="website_url" tabIndex={-1} autoComplete="off" /></label></div>
       {children}
+      {/* next to the button, so a failed send is seen */}
+      <div className={msg ? `form-msg ${msg.kind}` : 'form-msg'} role="alert">{msg?.text}</div>
       <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={sending}>
         {sending ? <><span className="spinner" aria-hidden="true" />Sending...</> : button}
       </button>
@@ -130,16 +131,16 @@ export function RequirementForm() {
     <FormShell form={form} button="Send requirement" doneTitle="Requirement received!"
       note="We reply with a written proposal and firm rates within 24 hours. No fee until a candidate joins.">
       <div className="field-row">
-        <Field invalid={v} id="rf-company" name="company_name" label="Company name *" required err="Please enter your company name" />
-        <Field invalid={v} id="rf-contact" name="contact_name" label="Your name *" required err="Please enter your name" />
+        <Field invalid={v} id="rf-company" name="company_name" label="Company name *" required autoComplete="organization" err="Please enter your company name" />
+        <Field invalid={v} id="rf-contact" name="contact_name" label="Your name *" required autoComplete="name" err="Please enter your name" />
       </div>
       <div className="field-row">
-        <Field invalid={v} id="rf-phone" name="phone" label="Phone / WhatsApp *" data-phone="1" required inputMode="numeric" placeholder="10-digit mobile" err="Enter a valid 10-digit mobile number" />
-        <Field invalid={v} id="rf-email" name="email" type="email" label="Email *" required err="Enter a valid email address" />
+        <Field invalid={v} id="rf-phone" name="phone" label="Phone / WhatsApp *" data-phone="1" required type="tel" autoComplete="tel" placeholder="10-digit mobile" err="Enter a valid 10-digit mobile number" />
+        <Field invalid={v} id="rf-email" name="email" type="email" label="Email *" required autoComplete="email" err="Enter a valid email address" />
       </div>
       <div className="field-row">
         <Field invalid={v} id="rf-role" name="role" label="Role / designation *" required placeholder="e.g. Telecaller, Ops Manager" err="Please enter the role" />
-        <Field invalid={v} id="rf-pos" name="positions" type="number" min="1" label="Number of positions *" required err="Please enter how many positions" />
+        <Field invalid={v} id="rf-pos" name="positions" type="number" min="1" inputMode="numeric" label="Number of positions *" required err="Please enter a whole number, 1 or more" />
       </div>
       <Field invalid={v} id="rf-exp" name="experience" label="Experience and qualification" hint="optional" placeholder="e.g. Freshers, or 2+ years in voice process" />
       <div className="field">
@@ -149,8 +150,8 @@ export function RequirementForm() {
         </div>
       </div>
       <div className="field-row">
-        <Field invalid={v} id="rf-smin" name="salary_min" type="number" label="Salary offered - from (Rs./month) *" required err="Enter the lower end of the band" />
-        <Field invalid={v} id="rf-smax" name="salary_max" type="number" label="Salary offered - to (Rs./month) *" required err="Enter the upper end of the band" />
+        <Field invalid={v} id="rf-smin" name="salary_min" type="number" min="1" inputMode="numeric" label="Salary offered - from (Rs./month) *" required err="Enter the lower amount in digits only, e.g. 15000" />
+        <Field invalid={v} id="rf-smax" name="salary_max" type="number" min="1" inputMode="numeric" label="Salary offered - to (Rs./month) *" required err="Enter the upper amount in digits, not below the lower one" />
       </div>
       <div className="field-row">
         <Field invalid={v} id="rf-loc" name="location" label="Location *" required placeholder="City and area" err="Please enter the work location" />
@@ -179,15 +180,15 @@ export function EmpanelmentForm() {
     <FormShell form={form} button="Send me the MoU" doneTitle="Your MoU is on its way!"
       note="No fee, no obligation, and we will not add you to a mailing list.">
       <div className="field-row">
-        <Field invalid={v} id="ef-company" name="company_name" label="Company name *" required err="Please enter your company name" />
-        <Field invalid={v} id="ef-contact" name="contact_name" label="Your name and designation *" required err="Please enter your name" />
+        <Field invalid={v} id="ef-company" name="company_name" label="Company name *" required autoComplete="organization" err="Please enter your company name" />
+        <Field invalid={v} id="ef-contact" name="contact_name" label="Your name and designation *" required autoComplete="name" err="Please enter your name" />
       </div>
       <div className="field-row">
-        <Field invalid={v} id="ef-phone" name="phone" label="Phone / WhatsApp *" data-phone="1" required inputMode="numeric" err="Enter a valid 10-digit mobile number" />
-        <Field invalid={v} id="ef-email" name="email" type="email" label="Email *" required err="Enter a valid email address" />
+        <Field invalid={v} id="ef-phone" name="phone" label="Phone / WhatsApp *" data-phone="1" required type="tel" autoComplete="tel" err="Enter a valid 10-digit mobile number" />
+        <Field invalid={v} id="ef-email" name="email" type="email" label="Email *" required autoComplete="email" err="Enter a valid email address" />
       </div>
       <div className="field-row">
-        <Field invalid={v} id="ef-city" name="city" label="City *" required err="Please enter your city" />
+        <Field invalid={v} id="ef-city" name="city" label="City *" required autoComplete="address-level2" err="Please enter your city" />
         <Field invalid={v} id="ef-ind" name="industry" label="Industry" placeholder="e.g. BPO, manufacturing, hospitality" />
       </div>
       <Field invalid={v} id="ef-roles" name="typical_roles" label="Roles you typically hire for" placeholder="e.g. voice process, accounts, field sales" />

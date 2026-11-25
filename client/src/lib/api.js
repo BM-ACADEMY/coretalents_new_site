@@ -7,6 +7,7 @@ export function sendLead(data) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
+    signal: AbortSignal.timeout?.(30000), // never stay on "Sending..." for ever
   }).then((res) => { if (!res.ok) throw new Error('bad response'); return res; });
 }
 
