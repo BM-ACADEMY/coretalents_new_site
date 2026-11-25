@@ -8,7 +8,7 @@ import { createPopup, getPopup, updatePopup } from './api';
 import { Alert, Field, PageHead, Switch } from './ui';
 
 const EMPTY = {
-  name: '', type: 'image', trigger: 'exit', delay: 5, effect: 'none', active: false,
+  name: '', type: 'image', trigger: 'exit', delay: 5, effect: 'none', frequency: 'session', active: false,
   imageAlt: '', width: 480, height: 600, linkUrl: '',
   heading: '', body: '', buttonLabel: '', buttonUrl: '',
 };
@@ -16,6 +16,10 @@ const EMPTY = {
 const SIZE = { min: 200, max: 1200 };
 const RATIOS = [['1:1', 1, 1], ['4:5', 4, 5], ['3:4', 3, 4], ['3:2', 3, 2], ['16:9', 16, 9]];
 const SITE_PAGES = ['/', '/services', '/roles', '/locations', '/insights', '/how-we-work', '/pricing', '/empanelment', '/about', '/contact'];
+const FREQUENCIES = [
+  ['always', 'Every page load', 'Shows again each time a page is opened or refreshed.'],
+  ['session', 'Once per visit', 'Shows once, then again the next time they open the browser.'],
+];
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 
 const clamp = (n) => Math.min(SIZE.max, Math.max(SIZE.min, Math.round(n)));
@@ -251,10 +255,21 @@ export default function PopupForm() {
               </div>
               <p className="a-hint">Plays once as the popup appears. Pick one to see it in the preview. Visitors who turn off animations on their device do not get it.</p>
             </div>
+            <div className="a-field">
+              <span className="a-label" id="pFreqLabel">How often one visitor sees it</span>
+              <div className="a-choice" role="radiogroup" aria-labelledby="pFreqLabel">
+                {FREQUENCIES.map(([value, label, text]) => (
+                  <button type="button" key={value} role="radio" aria-checked={form.frequency === value} className="a-choice-item"
+                    onClick={() => setForm((f) => ({ ...f, frequency: value }))}>
+                    <span><strong>{label}</strong><small>{text}</small></span>
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="a-switch-row">
               <div>
                 <strong>Show on the site</strong>
-                <small>Each visitor sees a popup once, never on the contact or empanelment pages, and not after sending a form.</small>
+                <small>Popups never show on the contact or empanelment pages, or to a visitor who has already sent a form.</small>
               </div>
               <Switch checked={form.active} onChange={(v) => setForm((f) => ({ ...f, active: v }))} label="Show on the site" />
             </div>

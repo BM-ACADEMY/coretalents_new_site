@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import mongoose from 'mongoose';
-import Popup, { TYPES, TRIGGERS, EFFECTS } from '../models/Popup.js';
+import Popup, { TYPES, TRIGGERS, EFFECTS, FREQUENCIES } from '../models/Popup.js';
 import { requireAdmin } from '../middleware/auth.js';
 import { uploadImage } from '../middleware/upload.js';
 import { removeUpload } from '../lib/files.js';
@@ -30,12 +30,13 @@ function isLink(v) {
 function readBody(body, hasImage) {
   const s = (k) => String(body[k] ?? '').trim();
   const n = (k) => Math.round(Number(body[k]));
-  const data = { name: s('name'), type: s('type'), trigger: s('trigger') || 'exit', effect: s('effect') || 'none', active: s('active') === 'true' };
+  const data = { name: s('name'), type: s('type'), trigger: s('trigger') || 'exit', effect: s('effect') || 'none', frequency: s('frequency') || 'session', active: s('active') === 'true' };
 
   if (!data.name) return { error: 'Give the popup a name' };
   if (!TYPES.includes(data.type)) return { error: 'Choose a popup type' };
   if (!TRIGGERS.includes(data.trigger)) return { error: 'Choose when the popup shows' };
   if (!EFFECTS.includes(data.effect)) return { error: 'Choose an effect from the list' };
+  if (!FREQUENCIES.includes(data.frequency)) return { error: 'Choose how often the popup shows' };
   data.delay = data.trigger === 'timer' ? n('delay') : 5;
   if (!(data.delay >= 1 && data.delay <= 120)) return { error: 'Delay must be between 1 and 120 seconds' };
 

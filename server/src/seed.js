@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import Admin from './models/Admin.js';
-import Popup from './models/Popup.js';
+import Popup, { FREQUENCIES } from './models/Popup.js';
 import { env } from './config/env.js';
 
 // The admin login lives in .env. Create it on first start, and pick up a
@@ -21,6 +21,8 @@ export async function syncAdmin() {
 
 // First start only: the empanelment exit popup the site launched with.
 export async function seedPopups() {
+  // popups saved before the "how often" setting, or with the removed "once per visitor" value
+  await Popup.updateMany({ frequency: { $nin: FREQUENCIES } }, { $set: { frequency: 'session' } });
   if (await Popup.estimatedDocumentCount()) return;
   await Popup.create({
     name: 'Empanelment - exit intent',

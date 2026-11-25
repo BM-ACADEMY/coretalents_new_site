@@ -1,17 +1,33 @@
 // Which popups this visitor has already been shown, and whether they have
-// submitted a form. Each popup shows once; after a form submit none show.
+// submitted a form. How often a popup may show again is its own setting
+// (popup.frequency); after a form submit none show.
 const SEEN = 'ct_popup_seen';
 const CONVERTED = 'ct_converted';
 
-export function seenIds() {
+// 'session' is remembered until the browser is closed, 'always' not at all
+function store(frequency) {
+  return frequency === 'always' ? null : sessionStorage;
+}
+
+function readIds(storage) {
   try {
-    const ids = JSON.parse(localStorage.getItem(SEEN) || '[]');
+    const ids = JSON.parse(storage.getItem(SEEN) || '[]');
     return Array.isArray(ids) ? ids : [];
   } catch { return []; }
 }
 
-export function markSeen(id) {
-  try { localStorage.setItem(SEEN, JSON.stringify([...new Set([...seenIds(), id])])); } catch { /* storage blocked */ }
+export function isSeen(popup) {
+  try {
+    const storage = store(popup.frequency);
+    return storage ? readIds(storage).includes(popup.id) : false;
+  } catch { return false; }
+}
+
+export function markSeen(popup) {
+  try {
+    const storage = store(popup.frequency);
+    if (storage) storage.setItem(SEEN, JSON.stringify([...new Set([...readIds(storage), popup.id])]));
+  } catch { /* storage blocked */ }
 }
 
 export function converted() {

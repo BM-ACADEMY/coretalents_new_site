@@ -6,7 +6,7 @@ import PopupView from './PopupView';
 import PopupEffect from './PopupEffect';
 import { assetUrl, fetchActivePopups } from '../lib/api';
 import { track } from '../lib/track';
-import { converted, markSeen, seenIds } from '../lib/popupSeen';
+import { converted, isSeen, markSeen } from '../lib/popupSeen';
 import { lockScroll } from './Motion';
 
 // pages where the visitor is already converting - never interrupt them
@@ -20,12 +20,14 @@ const DESKTOP = '(min-width: 761px) and (hover: hover) and (pointer: fine)';
 let shownThisLoad = false;
 
 // Shows the popups switched on in the admin panel. Each has a trigger - exit
-// intent (desktop) or a delay (all devices) - and each visitor sees it once.
+// intent (desktop) or a delay (all devices) - and its own setting for how often
+// one visitor sees it.
 export default function SitePopup() {
   const { pathname } = useLocation();
   const reduce = useReducedMotion();
   const [popups, setPopups] = useState([]);
   const [current, setCurrent] = useState(null);
+  const [loaderGone, setLoaderGone] = useState(() => !document.getElementById('preloader'));
   const box = useRef(null);
   const lastFocus = useRef(null);
   const skip = SKIP_PAGES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
@@ -40,16 +42,27 @@ export default function SitePopup() {
     return () => { alive = false; };
   }, []);
 
+  // the first-load loader (index.html) plays for a few seconds: delays count from when it has cleared
   useEffect(() => {
-    if (skip || !popups.length) return undefined;
-    const waiting = (trigger) => popups.find((p) => p.trigger === trigger && !seenIds().includes(p.id));
+    if (loaderGone) return undefined;
+    if (!document.getElementById('preloader')) { setLoaderGone(true); return undefined; }
+    const watch = new MutationObserver(() => {
+      if (!document.getElementById('preloader')) setLoaderGone(true);
+    });
+    watch.observe(document.body, { childList: true });
+    return () => watch.disconnect();
+  }, [loaderGone]);
+
+  useEffect(() => {
+    if (skip || !loaderGone || !popups.length) return undefined;
+    const waiting = (trigger) => popups.find((p) => p.trigger === trigger && !isSeen(p));
 
     function show(trigger) {
       if (shownThisLoad || converted() || document.querySelector('.form-success')) return;
       const next = waiting(trigger);
       if (!next) return;
       shownThisLoad = true;
-      markSeen(next.id);
+      markSeen(next);
       lastFocus.current = document.activeElement;
       setCurrent(next);
       track('popup_shown', { popup: next.name, trigger });
@@ -58,8 +71,9 @@ export default function SitePopup() {
     const timed = waiting('timer');
     const timer = timed ? setTimeout(() => show('timer'), timed.delay * 1000) : null;
 
+    const armedAt = performance.now();
     function onOut(e) {
-      if (e.relatedTarget || e.clientY > 10 || performance.now() < MIN_MS) return;
+      if (e.relatedTarget || e.clientY > 10 || performance.now() - armedAt < MIN_MS) return;
       show('exit');
     }
     const desktop = window.matchMedia(DESKTOP).matches;
@@ -69,7 +83,7 @@ export default function SitePopup() {
       clearTimeout(timer);
       if (desktop) document.removeEventListener('mouseout', onOut);
     };
-  }, [popups, skip]);
+  }, [popups, skip, loaderGone]);
 
   // navigating away (button, back) takes the popup with it
   useEffect(() => { setCurrent(null); }, [pathname]);

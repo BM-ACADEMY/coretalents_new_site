@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 export const TYPES = ['image', 'content'];
 export const TRIGGERS = ['exit', 'timer'];
 export const EFFECTS = ['none', 'cannons', 'burst', 'rain', 'fireworks'];
+export const FREQUENCIES = ['always', 'session'];
 
 const popupSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },      // admin-only label
@@ -11,6 +12,8 @@ const popupSchema = new mongoose.Schema({
   trigger: { type: String, enum: TRIGGERS, default: 'exit' }, // exit intent (desktop) or after a delay
   delay: { type: Number, default: 5 },                        // seconds, for trigger = timer
   effect: { type: String, enum: EFFECTS, default: 'none' },  // confetti-style animation when it opens
+  // how often one visitor sees it: every page load, or once per browser session
+  frequency: { type: String, enum: FREQUENCIES, default: 'session' },
 
   // image popup - the whole image is the link
   image: { type: String, default: '' },                       // file name inside UPLOAD_DIR
@@ -34,6 +37,7 @@ function shape(p) {
     trigger: p.trigger,
     delay: p.delay,
     effect: p.effect || 'none',
+    frequency: p.frequency || 'session',
     imageUrl: p.image ? `/uploads/${p.image}` : '',
     imageAlt: p.imageAlt,
     width: p.width,
