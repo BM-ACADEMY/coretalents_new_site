@@ -258,6 +258,8 @@ th{background:var(--navy);color:#fff;font-weight:600;font-size:.87rem;letter-spa
 td:first-child{color:var(--ink);font-weight:500}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:nth-child(even){background:#f8fafc}
+/* phones: tighter cells, so three columns do not break one word per line */
+@media (max-width:560px){th,td{padding:12px 10px}table{font-size:.88rem}}
 
 /* ---------- process timeline ---------- */
 .process{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -599,6 +601,9 @@ section.scroll-hero{padding:0;height:420vh;position:relative;background:var(--bg
 }
 @keyframes spin-border{to{--ang:360deg}}
 .card h3,.card p,.card .card-link{position:relative;z-index:1}
+/* the whole card is tappable, not only the "Read more" pill */
+.card .card-link{position:static}
+.card .card-link::after{z-index:2}
 .card h3{font-size:1.3rem;letter-spacing:-.025em;padding-right:72px}
 .card-index{position:absolute;right:22px;top:14px;font-size:3.4rem;font-weight:800;letter-spacing:-.06em;line-height:1;
   color:transparent;-webkit-text-stroke:1.5px var(--line-strong);transition:color .4s,-webkit-text-stroke-color .4s,transform .5s var(--ease)}
@@ -857,7 +862,7 @@ th{background:linear-gradient(90deg,var(--navy),var(--navy-deep))}
 .callout{border-radius:16px}
 
 @media (max-width:1080px){
-  .prose-grid{grid-template-columns:1fr;gap:0}
+  .prose-grid{grid-template-columns:minmax(0,1fr);gap:0} /* a wide table must not stretch the column */
   .toc{display:none}
 }
 @media (max-width:960px){
